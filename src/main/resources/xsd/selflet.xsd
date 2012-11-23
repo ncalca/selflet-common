@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://sourceforge.net/projects/selflet/"
+	elementFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://sourceforge.net/projects/selflet/">
+
+	<xsd:element name="selflet" type="selfletType"></xsd:element>
+
+	<xsd:complexType name="selfletType">
+		<xsd:sequence>
+			<xsd:element name="selfletProperties" type="selfletProperties"></xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="selfletProperties">
+		<xsd:sequence>
+			<xsd:element name="author" type="xsd:string"></xsd:element>
+			<xsd:element name="description" type="xsd:string"></xsd:element>
+			<xsd:choice>
+				<xsd:element name="passive" type="empty"></xsd:element>
+				<xsd:element name="active" type="activeType"></xsd:element>
+			</xsd:choice>
+			<xsd:element name="reds" type="redsType"></xsd:element>
+			<xsd:element name="generalknowledge" type="generalKnowledgeType"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="typeKnowledge" type="typeKnowledgeType"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="enableOptimizationPolicy" type="xsd:boolean"
+				default="false" minOccurs="0"></xsd:element>
+			<xsd:element name="enableCloudOptimizationPolicy" type="xsd:boolean"
+				default="false" minOccurs="0" nillable="false"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="activeType">
+		<xsd:attribute name="mainService" type="xsd:string" use="required">
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="empty"></xsd:complexType>
+
+	<xsd:complexType name="redsType">
+		<xsd:sequence>
+			<xsd:element name="ipAddress">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern
+							value="((1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).){3}(1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])">
+						</xsd:pattern>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="port">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:minInclusive value="1"></xsd:minInclusive>
+						<xsd:maxInclusive value="65535"></xsd:maxInclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="ipAddress">
+		<xsd:restriction base="xsd:string"></xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="selfLetProperty">
+		<xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="type" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="double"></xsd:enumeration>
+					<xsd:enumeration value="integer"></xsd:enumeration>
+					<xsd:enumeration value="string"></xsd:enumeration>
+					<xsd:enumeration value="boolean"></xsd:enumeration>
+					<xsd:enumeration value="ServiceAskMode"></xsd:enumeration>
+					<xsd:enumeration value="ServiceOfferMode"></xsd:enumeration>
+					<xsd:enumeration value="Double"></xsd:enumeration>
+					<xsd:enumeration value="Integer"></xsd:enumeration>
+					<xsd:enumeration value="String"></xsd:enumeration>
+					<xsd:enumeration value="Boolean"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="value" type="xsd:string" use="required"></xsd:attribute>
+	</xsd:complexType>
+
+
+
+
+
+
+	<xsd:complexType name="generalKnowledgeType">
+		<xsd:sequence>
+			<xsd:element name="selfLetProperty" type="selfLetProperty"
+				maxOccurs="unbounded" minOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="typeKnowledgeType">
+		<xsd:sequence>
+			<xsd:element name="selfLetProperty" type="selfLetProperty"
+				maxOccurs="unbounded" minOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<xsd:complexType name="inputType">
+		<xsd:sequence>
+			<xsd:element name="parameter" type="xsd:string"
+				maxOccurs="unbounded" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+
+
+	<xsd:complexType name="implementedByType">
+		<xsd:sequence>
+			<xsd:element name="behavior" type="xsd:string" maxOccurs="unbounded"
+				minOccurs="0">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="CPUUtilizationType">
+		<xsd:sequence>
+			<xsd:element name="lowerBound" type="xsd:double"></xsd:element>
+			<xsd:element name="upperBound" type="xsd:double"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

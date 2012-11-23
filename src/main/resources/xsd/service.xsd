@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://sourceforge.net/projects/selflet/service"
+	elementFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://sourceforge.net/projects/selflet/service">
+
+	<xsd:element name="service" type="serviceType"></xsd:element>
+
+	<xsd:complexType name="serviceType">
+		<xsd:sequence>
+			<xsd:element name="input" type="serviceInputType"
+				maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="output" type="serviceOutputType"
+				maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="revenue" type="xsd:double"></xsd:element>
+			<xsd:element name="maxResponseTime" type="xsd:double"></xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="offerMode" type="offerModeType"></xsd:attribute>
+		<xsd:attribute name="active" type="xsd:boolean"></xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="serviceInputType">
+		<xsd:sequence>
+			<xsd:element name="param" type="paramType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="serviceOutputType">
+		<xsd:sequence>
+			<xsd:element name="param" type="paramType"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="paramType">
+		<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="type" type="xsd:string"></xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:simpleType name="offerModeType">
+		<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="CanDo"></xsd:enumeration>
+					<xsd:enumeration value="CanTeach"></xsd:enumeration>
+					<xsd:enumeration value="Both"></xsd:enumeration>
+					<xsd:enumeration value="KnowsWhoCanBoth"></xsd:enumeration>
+					<xsd:enumeration value="KnowsWhoCanDo"></xsd:enumeration>
+					<xsd:enumeration value="KnowsWhoCanTeach"></xsd:enumeration>
+					<xsd:enumeration value="None"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>
