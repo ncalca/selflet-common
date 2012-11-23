@@ -1,0 +1,11 @@
+## eclipse ignores 
+.project
+.classpath
+.settings
+/bin
+/target
+*/.project
+*/.classpath
+*/.settings
+*/eclipse-build
+
