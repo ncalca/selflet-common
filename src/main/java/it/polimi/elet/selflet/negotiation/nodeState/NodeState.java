@@ -27,6 +27,8 @@ public class NodeState implements INodeState, Serializable {
 	private final Set<ISelfLetID> knownNeighbors;
 
 	private double utilization;
+	// TODO
+	private double utilizationUpperBound;
 
 	public NodeState(ISelfLetID selfletID) {
 		this.selfletID = selfletID;
@@ -74,7 +76,9 @@ public class NodeState implements INodeState, Serializable {
 
 	@Override
 	public String toString() {
-		return selfletID + ", utilization: " + utilization + ", services: " + getAvailableServices() + ", generic_attributes: " + genericAttributes;
+		return selfletID + ", utilization: " + utilization + ", services: "
+				+ getAvailableServices() + ", generic_attributes: "
+				+ genericAttributes;
 	}
 
 	@Override
@@ -92,6 +96,17 @@ public class NodeState implements INodeState, Serializable {
 	@Override
 	public double getUtilization() {
 		return utilization;
+	}
+
+	@Override
+	public double getUtilizationUpperBound() {
+		return utilizationUpperBound;
+	}
+
+	@Override
+	public void setUtilizationUpperBound(double currentUtilizationUpperBound) {
+		this.utilizationUpperBound = currentUtilizationUpperBound;
+
 	}
 
 }

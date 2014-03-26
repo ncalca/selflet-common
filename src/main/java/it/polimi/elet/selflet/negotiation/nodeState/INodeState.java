@@ -65,4 +65,19 @@ public interface INodeState extends Serializable {
 	double getUtilization();
 
 	void setUtilization(double currentTotalCPUUtilization);
+
+	/**
+	 * Returns the CPU utilization upper bound
+	 * 
+	 * @return CPU utilization upper bound
+	 */
+	double getUtilizationUpperBound();
+
+	/**
+	 * Set the current CPU utilization upper bound
+	 * 
+	 * @param currentUtilizationUpperBound
+	 *            Current CPU utilization upper bound
+	 */
+	void setUtilizationUpperBound(double currentUtilizationUpperBound);
 }

@@ -8,13 +8,14 @@ package it.polimi.elet.selflet.negotiation.nodeState;
 public enum NodeStateGenericDataEnum {
 
 	CPU_UTILIZATION,
-	
-	REQUEST_RATE,
-	
-	THROUGHPUT,
-	
-	SERVICE_UTILIZATION,
-	
-	RESPONSE_TIME
 
+	REQUEST_RATE,
+
+	THROUGHPUT,
+
+	SERVICE_UTILIZATION,
+
+	RESPONSE_TIME,
+
+	CPU_UTILIZATION_UPPER_BOUND
 }
