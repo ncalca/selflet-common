@@ -23,7 +23,8 @@ public class ServicePack implements Serializable {
 	private String serviceName;
 	private IBehavior defaultBehavior;
 	private long maxResponseTimeInMsec;
-
+	private double serviceDemand;
+	
 	public ServicePack(String name, Set<IBehavior> implementingBehaviors) {
 		this.serviceName = name;
 		this.behaviors = Sets.newHashSet(implementingBehaviors);
@@ -56,6 +57,14 @@ public class ServicePack implements Serializable {
 
 	public long getMaxResponseTimeInMsec() {
 		return maxResponseTimeInMsec;
+	}
+	
+	public void setServiceDemand(double serviceDemand){
+		this.serviceDemand = serviceDemand;
+	}
+	
+	public double getServiceDemand(){
+		return this.serviceDemand;
 	}
 
 }
