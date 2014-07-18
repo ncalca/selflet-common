@@ -29,6 +29,7 @@ public class NodeState implements INodeState, Serializable {
 	private double utilization;
 	// TODO
 	private double utilizationUpperBound;
+	private Map<String, Long> responseTimes;
 
 	public NodeState(ISelfLetID selfletID) {
 		this.selfletID = selfletID;
@@ -108,5 +109,22 @@ public class NodeState implements INodeState, Serializable {
 		this.utilizationUpperBound = currentUtilizationUpperBound;
 
 	}
+
+	@Override
+	public Map<String, Long> getResponseTimes() {
+		return responseTimes;
+	}
+
+	@Override
+	public void setResponseTimes(Map<String, Long> responseTimeOfServices) {
+		this.responseTimes = responseTimeOfServices;
+		
+	}
+
+	@Override
+	public long getResponseTimeOfService(String serviceName) {
+		return this.responseTimes.get(serviceName);
+	}
+
 
 }

@@ -80,4 +80,10 @@ public interface INodeState extends Serializable {
 	 *            Current CPU utilization upper bound
 	 */
 	void setUtilizationUpperBound(double currentUtilizationUpperBound);
+	
+	public Map<String, Long> getResponseTimes();
+
+	public void setResponseTimes(Map<String, Long> responseTimeOfServices);
+	
+	public long getResponseTimeOfService(String serviceName);
 }
