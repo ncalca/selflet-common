@@ -81,9 +81,19 @@ public class CollectionUtils {
 			int numberOfElements = 0;
 			double sum = 0;
 			while (iterator.hasNext()) {
-				sum += iterator.next();
-				numberOfElements++;
+				Double value = iterator.next();
+				// FIXME the point is: why next() return null if the addition of
+				// null objects is prevented in the circular fifo queue?
+				// Investigate the question...
+				if (value == null) {
+					iterator.remove();
+//					System.out.println("null in iterator");
+				} else {
+					sum += value;
+					numberOfElements++;
+				}
 			}
+//			System.out.println("sum: " + sum + "; numner of elements: " + numberOfElements);
 			if (numberOfElements == 0) {
 				return 0;
 			}
