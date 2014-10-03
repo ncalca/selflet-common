@@ -23,31 +23,46 @@ public class CollectionUtils {
 		return list.get(0);
 	}
 
+	@SuppressWarnings("finally")
 	public static <T extends IWeightedItem> T weightedRandomElement(
 			Collection<T> collection) {
 
-		checkEmpty(collection);
-		checkWeights(collection);
+		try {
+			checkWeights(collection);
+		} catch (IllegalArgumentException e) {
+			removeZeroWeightElements(collection);
+		} finally {
 
-		double totalWeight = 0;
+			checkEmpty(collection);
 
-		for (T item : collection) {
-			totalWeight += item.weight();
+			double totalWeight = 0;
+
+			for (T item : collection) {
+				totalWeight += item.weight();
+			}
+
+			double random = RandomDistributions.randUniform();
+			double normalizedCumulative = 0;
+
+			for (T item : collection) {
+				normalizedCumulative += item.weight() / totalWeight;
+				if (random < normalizedCumulative) {
+					return item;
+				}
+			}
+			
+			throw new IllegalStateException("Cannot retrieve a random weighted element");
 		}
-
-		double random = RandomDistributions.randUniform();
-		double normalizedCumulative = 0;
-
-		for (T item : collection) {
-			normalizedCumulative += item.weight() / totalWeight;
-			if (random < normalizedCumulative) {
-				return item;
+	}
+	
+	private static <T extends IWeightedItem> void removeZeroWeightElements(Collection<T> collection) {
+		Iterator<T> iterator = collection.iterator();
+		while(iterator.hasNext()){
+			T item = iterator.next();
+			if(item.weight() <= 0){
+				iterator.remove();
 			}
 		}
-
-		throw new IllegalStateException(
-				"Cannote extract random item from collection. Total weight: "
-						+ totalWeight);
 	}
 
 	public static <T> void checkEmpty(final Collection<T> collection) {
@@ -65,7 +80,7 @@ public class CollectionUtils {
 	public static <T extends IWeightedItem> void checkWeights(
 			final Collection<T> collection) {
 		for (T item : collection) {
-			if (item.weight() < 0) {
+			if (item.weight() <= 0) {
 				throw new IllegalArgumentException(
 						"Weight of item cannot be zero or negative: " + item);
 			}
@@ -87,13 +102,14 @@ public class CollectionUtils {
 				// Investigate the question...
 				if (value == null) {
 					iterator.remove();
-//					System.out.println("null in iterator");
+					System.out.println("null in iterator. sum: " + sum);
 				} else {
 					sum += value;
 					numberOfElements++;
 				}
 			}
-//			System.out.println("sum: " + sum + "; numner of elements: " + numberOfElements);
+			// System.out.println("sum: " + sum + "; numner of elements: " +
+			// numberOfElements);
 			if (numberOfElements == 0) {
 				return 0;
 			}
